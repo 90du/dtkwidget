@@ -609,11 +609,12 @@ void drawTitleBarMinButton(QPainter *pa, const QRectF &rect)
     const QPen pen = pa->pen();
     pa->setPen(Qt::NoPen);
     pa->drawRect(rect);
-    QRect content_rect(0, 0, rect.width() / 5, rect.height() / 5);
+    QRect content_rect(0, 0, rect.width(), rect.height() );
     content_rect.moveCenter(rect.center().toPoint());
     pa->setPen(pen);
     pa->setRenderHint(QPainter::Antialiasing, pa->device()->devicePixelRatioF() > 1.0);
-    drawDecreaseElement(pa, content_rect);
+    pa->drawLine(content_rect.width()*22/48, content_rect.height()*24/48, content_rect.width()*28/48, content_rect.height()*24/48);
+    
 }
 
 void drawTitleBarMaxButton(QPainter *pa, const QRectF &rect)
@@ -621,11 +622,12 @@ void drawTitleBarMaxButton(QPainter *pa, const QRectF &rect)
     const QPen pen = pa->pen();
     pa->setPen(Qt::NoPen);
     pa->drawRect(rect);
-    QRect content_rect(0, 0, rect.width() / 5, rect.height() / 6);
+    QRect content_rect(0, 0, rect.width(), rect.height());
     content_rect.moveCenter(rect.center().toPoint());
     pa->setPen(pen);
     pa->setRenderHint(QPainter::Antialiasing, pa->device()->devicePixelRatioF() > 1.0);
-    pa->drawRect(content_rect);
+    pa->drawLine(content_rect.width()*22/48, content_rect.height()*22/48, content_rect.width()*22/48, content_rect.height()*28/48);
+    pa->drawLine(content_rect.width()*28/48, content_rect.height()*22/48, content_rect.width()*28/48, content_rect.height()*28/48);
 }
 
 void drawTitleBarCloseButton(QPainter *pa, const QRectF &rect)
@@ -633,11 +635,19 @@ void drawTitleBarCloseButton(QPainter *pa, const QRectF &rect)
     const QPen pen = pa->pen();
     pa->setPen(Qt::NoPen);
     pa->drawRect(rect);
-    QRectF content_rect(0, 0, rect.width() / 5, rect.height() / 5);
+    QRectF content_rect(0, 0, rect.width(), rect.height());
     content_rect.moveCenter(rect.center());
-    pa->setPen(pen);
+   /* pa->setRenderHint(QPainter::Antialiasing, pa->device()->devicePixelRatioF() > 1.0);*/
+    /*pa->setBrush(QColor(0,129,255));*/
+    QStyleOption opt;
+    pa->setBrush(opt.palette.color(DPalette::Highlight));
+    pa->setPen(Qt::NoPen);
+    pa->setRenderHint( QPainter::Antialiasing, true );
+    pa->drawEllipse(content_rect.width()*16/48,content_rect.height()*16/48,content_rect.width()*20/48,content_rect.height()*20/48);
+    pa->setPen(Qt::white);
     pa->setRenderHint(QPainter::Antialiasing, pa->device()->devicePixelRatioF() > 1.0);
-    drawForkElement(pa, content_rect);
+    pa->drawLine(content_rect.width()*22/48, content_rect.height()*22/48, content_rect.width()*28/48, content_rect.height()*28/48);
+    pa->drawLine(content_rect.width()*28/48, content_rect.height()*22/48, content_rect.width()*22/48, content_rect.height()*28/48);
 }
 
 void drawTitleBarNormalButton(QPainter *pa, const QRectF &rect)
@@ -645,15 +655,14 @@ void drawTitleBarNormalButton(QPainter *pa, const QRectF &rect)
     const QPen pen = pa->pen();
     pa->setPen(Qt::NoPen);
     pa->drawRect(rect);
-    QRect content_rect(0, 0, rect.width() / 5, rect.height() / 5);
+    QRect content_rect(0, 0, rect.width(), rect.height());
     content_rect.moveCenter(rect.center().toPoint());
     pa->setPen(pen);
+    pa->drawLine(content_rect.width()*22/48, content_rect.height()*22/48, content_rect.width()*22/48, content_rect.height()*28/48);
+    pa->drawLine(content_rect.width()*28/48, content_rect.height()*22/48, content_rect.width()*28/48, content_rect.height()*28/48);
 
-    pa->setRenderHint(QPainter::Antialiasing, pa->device()->devicePixelRatioF() > 1.0);
-    pa->drawRect(content_rect.x(), content_rect.y() + 2, content_rect.width() - 2, content_rect.height() - 2);
-    pa->drawLine(content_rect.x() + 2, content_rect.y(), content_rect.right(), content_rect.y());
-    pa->drawLine(content_rect.right() + 1, content_rect.y(), content_rect.right() + 1, content_rect.bottom() - 2);
 }
+
 
 void drawArrowUp(QPainter *pa, const QRectF &rect)
 {
